@@ -19,7 +19,7 @@ from turtle_game.world import World
 
 
 class Engine:
-    def __init__(self, world: World, players: List[Player], border_proximity=10):
+    def __init__(self, world: World, players: List[Player], border_proximity:float=10, own_line_deaths:bool=False):
         self.world: World = world
         self.players: List[Player] = players
         parties = len(players) + 1
@@ -33,29 +33,10 @@ class Engine:
         self.line_lock: Lock = Lock()
         self.movement_functions_dict: Dict[str, Callable[[CompetitionTurtle], None]] = {}
         self.__border_proximity = border_proximity
+        self.__own_line_deaths = own_line_deaths
         self.__start: bool = False
 
-        # team_name: str,
-        # color: Union[str, Tuple[float, float, float]],
-        # x: float,
-        # y: float,
-        # move_barrier: Barrier,
-        # check_barrier: Barrier,
-        # process_queue: Queue,
-        # line_lists: Dict[str, List[PointPair]],
-        # process_lock: Lock,
-        # line_lock: Lock,
-        # can_move_without_wait: (CompetitionTurtle) -> bool,
-        # is_game_over: () -> bool,
-        # is_turtle_on_left_edge: (CompetitionTurtle) -> bool,
-        # is_turtle_on_top_edge: (CompetitionTurtle) -> bool,
-        # is_turtle_on_right_edge: (CompetitionTurtle) -> bool,
-        # is_turtle_on_bottom_edge: (CompetitionTurtle) -> bool,
-        # is_turtle_in_top_left_corner: (CompetitionTurtle) -> bool,
-        # is_turtle_in_top_right_corner: (CompetitionTurtle) -> bool,
-        # is_turtle_in_bottom_right_corner: (CompetitionTurtle) -> bool,
-        # is_turtle_in_bottom_left_corner: (CompetitionTurtle) -> bool,
-        # max_speed: float
+
 
         for player in players:
             tracer(0, 0)
@@ -129,7 +110,7 @@ class Engine:
                 for line in self.line_lists[player.team_name]:
                     if(line.is_on_line(tuple_to_point(turtle.position()))):
                         return True
-            else:
+            elif self.__own_line_deaths:
                 touched_line_before = False
                 is_touching_current_line = False
                 for line in self.line_lists[player.team_name]:

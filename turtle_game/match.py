@@ -40,13 +40,13 @@ def randPass(minLen):
             toReturn += scs[randint(0,len(scs)-1)]
     return toReturn
 
-def run_match(people, world_width: int=300, world_height: int=300, predator_kill_radius=30, prey_per_team:int=45, predators_per_team:int=5, background=True) -> Player:
+def run_match(people, world_width: int=300, world_height: int=300, predator_kill_radius=30, prey_per_team:int=45, predators_per_team:int=5, background=True, own_line_deaths=False) -> Player:
     players: List[Player] = []
     team_names: List[str] = []
     for person in people:
         players.append(Player((person.team_name + randPass(5)) if person.team_name in team_names else person.team_name, person.color, person.placement_function, person.movement_function))
         team_names.append(person.team_name)
     world: World = World(world_width,world_height,background)
-    engine: Engine = Engine(world, players,10)
+    engine: Engine = Engine(world, players,10,own_line_deaths)
     winner: Player = engine.run()
     return winner
