@@ -44,7 +44,7 @@ class PointPair:
 
 
 
-    def is_on_line(self, point, line_range=25):
+    def is_on_line(self, point, line_range=20):
         return self.distance_from_line(point) < line_range
 
     def __is_on_actual_line(self, point: Point):

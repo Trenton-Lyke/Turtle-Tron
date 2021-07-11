@@ -127,8 +127,22 @@ class Engine:
         for player in self.players:
             if player.team_name != turtle.team_name():
                 for line in self.line_lists[player.team_name]:
-                    turtle_on_line |= line.is_on_line(tuple_to_point(turtle.position()))
-        return turtle_on_line
+                    if(line.is_on_line(tuple_to_point(turtle.position()))):
+                        return True
+            else:
+                touched_line_before = False
+                is_touching_current_line = False
+                for line in self.line_lists[player.team_name]:
+                    just_touched_line = line.is_on_line(tuple_to_point(turtle.position()))
+                    if just_touched_line:
+                        if not touched_line_before:
+                            touched_line_before = True
+                            is_touching_current_line = True
+                    elif is_touching_current_line:
+                        return True
+                    else:
+                        pass
+        return False
 
     def move_inbounds(self, turtle):
         x = turtle.position()[0]
