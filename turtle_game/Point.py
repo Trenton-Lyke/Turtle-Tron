@@ -14,6 +14,8 @@ class Point:
         self.x = x
         self.y = y
 
+    def distance(self, point: Point):
+        return sqrt((self.x - point.x) ** 2 + (self.y - point.y) ** 2)
 
 class PointPair:
     def __init__(self, point1: Point, point2: Point):
@@ -33,20 +35,21 @@ class PointPair:
         y = point.y
         return Point((x+m*y-m*b)/(m**2+1),m*((x+m*y+m*b)/(m**2+1))+b)
     def distance_from_line(self, point: Point)->float:
-        x1 = point.x
-        y1 = point.y
         closest_point = self.closest_point_on_line(point)
-        x2 = closest_point.x
-        y2 = closest_point.y
-        return sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+        if self.__is_on_actual_line(closest_point):
+            return closest_point.distance(point)
+        else:
+            return min(self.point1.distance(point),self.point2.distance(point))
 
 
-    def is_on_line(self, point, line_range=30):
-        return self.__is_near_actual_line(self.closest_point_on_line(point), line_range) and self.distance_from_line(point) < line_range
 
-    def __is_near_actual_line(self, point: Point, buffer=30):
-        min_x = min(self.point1.x-buffer,self.point2.x-buffer)
-        min_y = min(self.point1.y-buffer,self.point2.y-buffer)
-        max_x = max(self.point1.x+buffer,self.point2.x+buffer)
-        max_y = max(self.point1.y+buffer,self.point2.y+buffer)
+
+    def is_on_line(self, point, line_range=25):
+        return self.distance_from_line(point) < line_range
+
+    def __is_on_actual_line(self, point: Point):
+        min_x = min(self.point1.x,self.point2.x)
+        min_y = min(self.point1.y,self.point2.y)
+        max_x = max(self.point1.x,self.point2.x)
+        max_y = max(self.point1.y,self.point2.y)
         return point.x > min_x and point.x < max_x and point.y > min_y and point.y < max_y

@@ -15,7 +15,7 @@ from turtle_game.relative_location import RelativeLocation
 class CompetitionTurtle:
     def __init__(self, team_name: str, color: Union[str,Tuple[float,float,float]], x: float, y: float, move_barrier: Barrier, check_barrier: Barrier, process_queue: Queue, line_lists: Dict[str,List[PointPair]], process_lock: Lock, line_lock: Lock, can_move_without_wait: Callable[[CompetitionTurtle], bool], is_game_over: Callable[[], bool], is_turtle_on_left_edge: Callable[[CompetitionTurtle], bool], is_turtle_on_top_edge: Callable[[CompetitionTurtle], bool], is_turtle_on_right_edge: Callable[[CompetitionTurtle], bool], is_turtle_on_bottom_edge: Callable[[CompetitionTurtle], bool], is_turtle_in_top_left_corner: Callable[[CompetitionTurtle], bool], is_turtle_in_top_right_corner: Callable[[CompetitionTurtle], bool], is_turtle_in_bottom_right_corner: Callable[[CompetitionTurtle], bool], is_turtle_in_bottom_left_corner: Callable[[CompetitionTurtle], bool], max_speed: float):
         self.__turtle: Turtle = Turtle()
-        self.__turtle.shape('turtle')
+        self.__turtle.shape('circle')
         self.__team_name: str = team_name
         self.__turtle.speed("fastest")
         self.__turtle.color(color)
