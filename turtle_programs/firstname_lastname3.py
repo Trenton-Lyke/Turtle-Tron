@@ -5,9 +5,7 @@ from turtle_game.world import World
 
 team_name: str = "Buffies"
 
-prey_color: Union[str,Tuple[float,float,float]] = "blue"
-
-predator_color: Union[str,Tuple[float,float,float]] = "red"
+color: Union[str,Tuple[float,float,float]] = "red"
 
 def prey_placement_function(world: World, prey_number: int) -> Tuple[float, float]:
     return world.random_location()

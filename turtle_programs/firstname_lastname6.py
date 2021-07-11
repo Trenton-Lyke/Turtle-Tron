@@ -5,9 +5,8 @@ from turtle_game.competition_turtle import CompetitionTurtle
 
 team_namer="team name"
 
-prey_color = "purple"
+color = "pink"
 
-predator_color = "green"
 
 def prey_placement_function(world, prey_number):
     return world.random_location()

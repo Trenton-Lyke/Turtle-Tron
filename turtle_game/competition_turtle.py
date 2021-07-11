@@ -20,6 +20,7 @@ class CompetitionTurtle:
         self.__turtle.speed("fastest")
         self.__turtle.color(color)
         self.__turtle.pencolor(color)
+        self.__turtle.pensize(10)
         self.__turtle.shapesize(2)
         self.__turtle.penup()
         self.__move_barrier: Barrier = move_barrier

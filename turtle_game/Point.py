@@ -41,10 +41,10 @@ class PointPair:
         return sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
 
-    def is_on_line(self, point, line_range=20):
+    def is_on_line(self, point, line_range=30):
         return self.__is_near_actual_line(self.closest_point_on_line(point), line_range) and self.distance_from_line(point) < line_range
 
-    def __is_near_actual_line(self, point: Point, buffer=20):
+    def __is_near_actual_line(self, point: Point, buffer=30):
         min_x = min(self.point1.x-buffer,self.point2.x-buffer)
         min_y = min(self.point1.y-buffer,self.point2.y-buffer)
         max_x = max(self.point1.x+buffer,self.point2.x+buffer)
