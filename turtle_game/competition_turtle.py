@@ -117,7 +117,13 @@ class CompetitionTurtle:
         self.wait(False)
         self.__change_last_line_endpoint_to_current()
 
-
+    def backward(self, speed: float):
+        if self.__is_alive:
+            speed = min(speed, self.__energy, self.__max_speed)
+            self.__energy -= speed
+            self.__add_to_process_queue(self.__turtle.backward, speed)
+        self.wait(False)
+        self.__change_last_line_endpoint_to_current()
 
     def right(self, value: float):
         if self.__is_alive:
