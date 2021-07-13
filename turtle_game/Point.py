@@ -3,11 +3,6 @@ from math import sqrt
 from typing import Tuple
 
 
-def tuple_to_point(point: Tuple[float, float]) -> Point:
-    return Point(point[0], point[1])
-
-def tuples_to_point_pair(point1: Tuple[float,float], point2: Tuple[float,float]) -> PointPair:
-    return PointPair(tuple_to_point(point1),tuple_to_point(point2))
 
 class Point:
     def __init__(self, x, y):
@@ -53,3 +48,9 @@ class PointPair:
         max_x = max(self.point1.x,self.point2.x)
         max_y = max(self.point1.y,self.point2.y)
         return point.x > min_x and point.x < max_x and point.y > min_y and point.y < max_y
+
+def tuple_to_point(point: Tuple[float, float]) -> Point:
+    return Point(point[0], point[1])
+
+def tuples_to_point_pair(point1: Tuple[float,float], point2: Tuple[float,float]) -> PointPair:
+    return PointPair(tuple_to_point(point1),tuple_to_point(point2))

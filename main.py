@@ -25,15 +25,7 @@ def default_placement_function(world: World) -> Tuple[float, float]:
     return world.random_location()
 
 def default_movement_function(turtle: CompetitionTurtle, world: World):
-    num = randint(0,4)
-    if num == 0:
-        turtle.right(30)
-    elif num == 1:
-        turtle.left(30)
-    elif num == 2:
-        turtle.forward(3)
-    else:
-        turtle.wait()
+    turtle.forward(turtle.energy_level())
 
 def test_function(function, *arguments):
     try:
@@ -79,16 +71,15 @@ def failsafes(person):
         color = "blue"
     else:
         color = person.color
-    if not hasattr(person,"placement_function") or not isinstance(person.placement_function, Callable) or not test_function_time(2, person.placement_function, World(), 1):
+    if not hasattr(person,"placement_function") or not isinstance(person.placement_function, Callable):
         print("Placement function failsafe 1 triggered")
         placement_function = default_placement_function
     else:
         placement_function = person.placement_function
-
-    test_turtle = CompetitionTurtle(team_name, color, World().random_location()[0], World().random_location()[1],
-                                    Barrier(1), Barrier(1), Queue(), {team_name:[]}, Lock(), Lock(), can_goto, game_over ,get_bool, get_bool, get_bool, get_bool, get_bool, get_bool, get_bool, get_bool, 12)
+    test_turtle = CompetitionTurtle(team_name, color, World().random_location()[0], World().random_location()[1], Barrier(1)
+                                    , Barrier(1), Queue(), {team_name:[]}, Lock(), Lock(), can_goto, game_over ,get_bool, get_bool, get_bool, get_bool, get_bool, get_bool, get_bool, get_bool, 12)
     test_turtle.hide()
-    if not hasattr(person,"movement_function") or not isinstance(person.movement_function, Callable) or not test_function_time(5, person.movement_function, test_turtle, World()):
+    if not hasattr(person,"movement_function") or not isinstance(person.movement_function, Callable) :
         print("Movement function failsafe 1 triggered")
         movement_function = default_movement_function
     else:

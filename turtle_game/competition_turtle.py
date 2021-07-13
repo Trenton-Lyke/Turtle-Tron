@@ -1,6 +1,7 @@
 from __future__ import annotations
 from math import sqrt, atan2, degrees
 from queue import Queue
+from random import random
 from threading import Lock, Barrier
 from turtle import Turtle
 
@@ -23,6 +24,7 @@ class CompetitionTurtle:
         self.__turtle.pensize(10)
         self.__turtle.shapesize(1)
         self.__turtle.penup()
+        self.__turtle.setheading(random() * 360)
         self.__move_barrier: Barrier = move_barrier
         self.__check_barrier: Barrier = check_barrier
         self.__process_queue: Queue = process_queue
