@@ -230,7 +230,8 @@ class Engine:
                 self.check_barrier.wait()
             except:
                 pass
-        print("Winner:",self.winning_player().team_name)
+        winner = self.winning_player()
+        print("Winner:",winner.team_name,str(winner.color))
         return self.winning_player()
 
 

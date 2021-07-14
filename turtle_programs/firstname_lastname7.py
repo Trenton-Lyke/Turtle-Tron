@@ -3,7 +3,7 @@ from random import randint
 
 from turtle_game.competition_turtle import CompetitionTurtle
 
-team_namer="team 5"
+team_name="team 7"
 
 color = "yellow"
 

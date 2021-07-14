@@ -3,7 +3,7 @@ from turtle_game.competition_turtle import CompetitionTurtle
 from turtle_game.world import World
 
 
-team_name = "1"
+team_name = "team 3"
 
 color = "red"
 
