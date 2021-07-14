@@ -7,7 +7,7 @@ from turtle_game.world_dimensions import WorldDimensions
 
 
 class World:
-    def __init__(self, width: int=700, height: int=700, background=True):
+    def __init__(self, width: int=1000, height: int=1000, background=True):
         self.world_dimensions: WorldDimensions = WorldDimensions(width,height)
         self.turtles: List[CompetitionTurtle] = []
         screensize(int(self.world_dimensions.width()), int(self.world_dimensions.height()))

@@ -3,7 +3,7 @@ from turtle_game.competition_turtle import CompetitionTurtle
 from turtle_game.world import World
 
 
-team_name: str = "Buffies"
+team_name: str = "Buffies6"
 
 color: Union[str,Tuple[float,float,float]] = "white"
 

@@ -12,6 +12,9 @@ class Point:
     def distance(self, point: Point):
         return sqrt((self.x - point.x) ** 2 + (self.y - point.y) ** 2)
 
+    def __str__(self):
+        return "("+str(self.x)+","+str(self.y)+")"
+
 class PointPair:
     def __init__(self, point1: Point, point2: Point):
         self.point1 = point1
@@ -28,19 +31,17 @@ class PointPair:
         b = self.y_intercept()
         x = point.x
         y = point.y
-        return Point((x+m*y-m*b)/(m**2+1),m*((x+m*y+m*b)/(m**2+1))+b)
-    def distance_from_line(self, point: Point)->float:
-        closest_point = self.closest_point_on_line(point)
-        if self.__is_on_actual_line(closest_point):
-            return closest_point.distance(point)
-        else:
-            return min(self.point1.distance(point),self.point2.distance(point))
+        closestPoint = Point((x+m*y-m*b)/(m**2+1),m*((x+m*y+m*b)/(m**2+1))+b)
+
+        return closestPoint
 
 
+    def distToSegment(self, p):
+        return sqrt(distToSegmentSquared(p, self.point1, self.point2))
 
 
-    def is_on_line(self, point, line_range=14):
-        return self.distance_from_line(point) < line_range
+    def is_on_line(self, point, line_range=12):
+        return self.distToSegment(point) < line_range
 
     def __is_on_actual_line(self, point: Point):
         min_x = min(self.point1.x,self.point2.x)
@@ -54,3 +55,12 @@ def tuple_to_point(point: Tuple[float, float]) -> Point:
 
 def tuples_to_point_pair(point1: Tuple[float,float], point2: Tuple[float,float]) -> PointPair:
     return PointPair(tuple_to_point(point1),tuple_to_point(point2))
+def dist2(v, w):
+    return (v.x - w.x)**2 + (v.y - w.y)**2
+def distToSegmentSquared(p, v, w):
+    l2 = dist2(v, w)
+    if l2 == 0:
+        return dist2(p, v)
+    t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2
+    t = max(0, min(1, t))
+    return dist2(p, Point(v.x + t * (w.x - v.x), v.y + t * (w.y - v.y) ))
