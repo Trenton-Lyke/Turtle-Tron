@@ -17,7 +17,7 @@ def predator_placement_function(world: World, prey_number: int) -> Tuple[float, 
 
 def movement_function(turtle: CompetitionTurtle, world: World):
     turtle.forward(turtle.energy_level())
-    turtle.right(30)
+    turtle.right(45)
 
 def predator_movement_function(turtle: CompetitionTurtle, world: World):
     angle = turtle.closest_enemy_prey().angle()
