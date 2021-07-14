@@ -19,8 +19,13 @@ class CompetitionTurtle:
         self.__turtle.shape('circle')
         self.__team_name: str = team_name
         self.__turtle.speed("fastest")
-        self.__turtle.color(color)
-        self.__turtle.pencolor(color)
+        try:
+            self.__turtle.color(color)
+            self.__turtle.pencolor(color)
+        except:
+            self.__turtle.color("blue")
+            self.__turtle.pencolor("blue")
+            print("Color fail safe activated")
         self.__turtle.pensize(10)
         self.__turtle.shapesize(1)
         self.__turtle.penup()
