@@ -89,7 +89,7 @@ class Engine:
             if can_die:
                 turtle.hide()
                 self.world.turtles[:] = [x for x in self.world.turtles if not x == turtle]
-                print(turtle.team_name, "died")
+                print(turtle.team_name(), "died")
                 return True
             else:
                 location = self.world.random_location()
