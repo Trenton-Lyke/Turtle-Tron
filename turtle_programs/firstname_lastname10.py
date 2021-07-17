@@ -1,1 +1,0 @@
-team_name = "team 10"

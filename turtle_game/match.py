@@ -40,7 +40,7 @@ def randPass(minLen):
             toReturn += scs[randint(0,len(scs)-1)]
     return toReturn
 
-def run_match(people, world_width: int=1778, world_height: int=1000, predator_kill_radius=30, prey_per_team:int=45, predators_per_team:int=5, background=True, own_line_deaths=True) -> Player:
+def run_match(people, world_width: int=5000, world_height: int=5000, predator_kill_radius=30, prey_per_team:int=45, predators_per_team:int=5, background=True, own_line_deaths=True) -> Player:
     players: List[Player] = []
     team_names: List[str] = []
     for person in people:
