@@ -4,7 +4,7 @@ import os
 from queue import Queue
 from random import random, randint
 from threading import Barrier, Lock
-from turtle import Screen
+from turtle import Screen, tracer, update
 from typing import Union, Tuple, Callable
 
 from turtle_game.competition_turtle import CompetitionTurtle
@@ -86,7 +86,7 @@ def failsafes(person):
         movement_function = person.movement_function
     return Player(team_name,color,placement_function,movement_function)
 
-
+Screen().setup(width=0, height=0)
 people=[]
 for file in os.listdir(turtle_programs.__path__[0]):
     if file.endswith(".py") and file != "__init__.py":
@@ -94,8 +94,29 @@ for file in os.listdir(turtle_programs.__path__[0]):
         person = failsafes(person)
         people.append(person)
 
+Screen().setup(width=1.0, height=1.0)
+people_per_match = 2
+round = 1
+while len(people) > 1:
+    winners = []
+    for i in range(0,len(people),people_per_match):
+        players = []
+        for k in range(people_per_match):
+            players.append(people[(i + k) if (i + k < len(people)) else randint(0, len(people)-1)])
 
-
-winner = run_match(people)
+        input("Hit any key to clear last match: ")
+        update()
+        tracer(0,0)
+        update()
+        Screen().setup(width=1.0-random()/100, height=1.0-random()/100)
+        print("round " + str(round) + " match " + str(i // people_per_match + 1))
+        for player in players:
+            print(player.team_name,player.color)
+        winner = run_match(players)
+        if not (winner in winners):
+            winners.append(winner)
+    people = winners
+    round += 1
+print("Congratulations",people[0].team_name + " won the tournament" if len(people) > 0 else "everyone won because we all learned")
 Screen().exitonclick()
 

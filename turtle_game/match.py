@@ -1,5 +1,5 @@
 from random import randint
-from turtle import Screen
+from turtle import Screen, update, tracer
 from typing import List
 
 from turtle_game.engine import Engine
@@ -40,7 +40,7 @@ def randPass(minLen):
             toReturn += scs[randint(0,len(scs)-1)]
     return toReturn
 
-def run_match(people, world_width: int=5000, world_height: int=5000, predator_kill_radius=30, prey_per_team:int=45, predators_per_team:int=5, background=True, own_line_deaths=True) -> Player:
+def run_match(people, world_width: int=2500, world_height: int=1300, predator_kill_radius=30, prey_per_team:int=45, predators_per_team:int=5, background=True, own_line_deaths=True) -> Player:
     players: List[Player] = []
     team_names: List[str] = []
     for person in people:
@@ -48,5 +48,8 @@ def run_match(people, world_width: int=5000, world_height: int=5000, predator_ki
         team_names.append(person.team_name)
     world: World = World(world_width,world_height,background)
     engine: Engine = Engine(world, players,10,own_line_deaths)
+    tracer(0, 0)
+    update()
+    input("Hit any key to start: ")
     winner: Player = engine.run()
     return winner

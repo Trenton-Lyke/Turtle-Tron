@@ -13,8 +13,7 @@ class World:
         screensize(int(self.world_dimensions.width()), int(self.world_dimensions.height()))
         Screen().clear()
         if background:
-            pass
-            # Screen().bgcolor("black")
+            Screen().bgcolor("black")
 
     def is_in_bounds(self, turtle: CompetitionTurtle):
         x=turtle.position()[0]

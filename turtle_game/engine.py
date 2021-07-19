@@ -80,6 +80,8 @@ class Engine:
             if not self.update_engine_lists(can_die, turtle) and not can_die:
                 return False
             turtle.enemy_relative_locations.sort(key=lambda x: x.distance())
+        tracer(0, 0)
+        update()
         return True
 
 
@@ -230,6 +232,8 @@ class Engine:
                 self.check_barrier.wait()
             except:
                 pass
+        tracer(0, 0)
+        update()
         winner = self.winning_player()
         print("Winner:",winner.team_name,str(winner.color))
         return self.winning_player()
