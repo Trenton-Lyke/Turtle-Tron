@@ -2,7 +2,7 @@
 # opponent turtles to be enclosed by quotation marks
 # for example:
 # team_name = "The Lame Team"
-team_name = "opponent team name"
+team_name = "The winners"
 
 # replace "opponent team color" with the name of the color
 # you want opponent turtles to be and enclose it with quotation marks
