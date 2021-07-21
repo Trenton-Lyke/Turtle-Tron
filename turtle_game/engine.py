@@ -2,6 +2,8 @@ from math import sqrt, degrees, atan2
 from queue import Queue
 from random import random, randint
 from threading import Barrier, Lock, Thread, Event
+import time
+
 from typing import Tuple, List, Callable, Dict
 from turtle import tracer, update
 
@@ -19,7 +21,9 @@ from turtle_game.world import World
 
 
 class Engine:
-    def __init__(self, world: World, players: List[Player], border_proximity:float=10, own_line_deaths:bool=False, safe_mode:bool=False):
+    def __init__(self, world: World, players: List[Player], border_proximity:float=10, own_line_deaths:bool=False, safe_mode:bool=False, max_time = 30):
+        self.max_time = max_time
+        self.start_time = 0
         self.safe_mode = safe_mode
         self.world: World = world
         self.players: List[Player] = players
@@ -36,6 +40,7 @@ class Engine:
         self.__border_proximity = border_proximity
         self.__own_line_deaths = own_line_deaths
         self.__start: bool = False
+
 
 
 
@@ -153,7 +158,7 @@ class Engine:
 
 
     def game_over(self) -> bool:
-        return len(self.world.turtles) <= 1
+        return len(self.world.turtles) <= 1 or (self.start_time != 0 and abs(self.start_time-time.time())>self.max_time)
 
     def is_turtle_on_left_edge(self, turtle: CompetitionTurtle) -> bool:
         return abs(turtle.position()[0]-self.world.world_dimensions.min_x()) < self.__border_proximity
@@ -175,7 +180,7 @@ class Engine:
         if (len(self.world.turtles) == 1):
             return [player for player in self.players if player.team_name == self.world.turtles[0].team_name()][0]
         print("It was a draw selecting random winner...")
-        return self.players[randint(0,len(self.players))]
+        return self.players[randint(0,len(self.players)-1)]
 
     def turtle_thread_function(self, function: Callable[[CompetitionTurtle, World], None], turtle: CompetitionTurtle):
         invalid_function: bool = False
@@ -211,10 +216,11 @@ class Engine:
             thread = Thread(target=(self.turtle_thread_function), args=(self.movement_functions_dict[turtle.team_name()], turtle))
             thread.setDaemon(True)
             thread.start()
-
+            
     def run(self):
         self.__start = True
         self.start_threads()
+        self.start_time = time.time()
         old_count = len(self.world.turtles)
         while not self.game_over():
             try:

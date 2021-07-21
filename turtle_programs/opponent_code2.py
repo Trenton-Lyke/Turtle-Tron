@@ -8,7 +8,7 @@ team_name = "opponent team name"
 # you want opponent turtles to be and enclose it with quotation marks
 # for example:
 # color = "blue"
-color = "orange"
+color = "pink"
 
 # replace turtle.forward(1) with the code you want to use to move the
 # opponent turtles around during the game. Make sure the code is

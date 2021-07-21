@@ -2,7 +2,7 @@
 # opponent turtles to be enclosed by quotation marks
 # for example:
 # team_name = "The Lame Team"
-team_name = "opponent team name"
+team_name = "Dream team"
 
 # replace "opponent team color" with the name of the color
 # you want opponent turtles to be and enclose it with quotation marks
@@ -14,10 +14,6 @@ color = "orange"
 # opponent turtles around during the game. Make sure the code is
 # indented over just like the turtle.forward(1) method call is.
 def movement_function(turtle, world):
-    turtle.forward(1)
-    turtle.right(45)
+    turtle.right(120)
     for i in range(100):
       turtle.forward(turtle.energy_level()/2)
-      turtle.left(90)
-      turtle.forward(turtle.energy_level()/2)
-      turtle.right(90)

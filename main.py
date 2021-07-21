@@ -2,9 +2,10 @@ import sys
 from importlib import import_module
 import os
 from queue import Queue
-from random import random, randint
+from random import random, randint, shuffle
 from threading import Barrier, Lock
 from turtle import Screen, tracer, update
+
 from typing import Union, Tuple, Callable
 
 from turtle_game.competition_turtle import CompetitionTurtle
@@ -97,13 +98,20 @@ for file in os.listdir(turtle_programs.__path__[0]):
 Screen().setup(width=1.0, height=1.0)
 people_per_match = 2
 round = 1
+shuffle(people)
 while len(people) > 1:
     winners = []
     for i in range(0,len(people),people_per_match):
         players = []
         for k in range(people_per_match):
-            players.append(people[(i + k) if (i + k < len(people)) else randint(0, len(people)-1)])
-
+            if (i + k < len(people)):
+                players.append(people[(i + k)])
+            else:
+                break
+        if len(players) == 1:
+            if not (players[0] in winners):
+                winners.append(players[0])
+            continue
         input("Hit any key to clear last match: ")
         update()
         tracer(0,0)
@@ -116,6 +124,7 @@ while len(people) > 1:
         if not (winner in winners):
             winners.append(winner)
     people = winners
+    shuffle(people)
     round += 1
 print("Congratulations",people[0].team_name + " won the tournament" if len(people) > 0 else "everyone won because we all learned")
 Screen().exitonclick()
