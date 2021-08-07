@@ -21,11 +21,14 @@ from turtle_game.world import World
 
 
 class Engine:
-    def __init__(self, world: World, players: List[Player], border_proximity:float=10, own_line_deaths:bool=False, safe_mode:bool=False, max_time = 30):
+    def __init__(self, world: World, players: List[Player], border_proximity:float=10, own_line_deaths:bool=False, safe_mode:bool=False, max_time = 60):
         self.max_time = max_time
         self.start_time = 0
         self.safe_mode = safe_mode
         self.world: World = world
+        self.initial_width: float = world.world_dimensions.width()
+        self.initial_height: float = world.world_dimensions.height()
+        self.initial_min_measure = min(self.initial_width,self.initial_height)
         self.players: List[Player] = players
         parties = len(players) + 1
         self.move_barrier: Barrier = Barrier(parties)
@@ -64,6 +67,9 @@ class Engine:
         update()
 
     def location_failsafe(self, location, is_prey):
+        
+
+
         if not (isinstance(location, Tuple) and len(location) == 2 and isinstance(location[0], float) and isinstance(
                 location[1], float)):
             print(("Prey" if is_prey else "Predator"),"placement function failsafe 2 triggered")
@@ -231,7 +237,8 @@ class Engine:
             while not self.process_queue.empty():
                 command = self.process_queue.get()
                 command.function(command.value)
-
+            # time_fraction_to_go = (self.max_time - .5*(time.time()-self.start_time))/self.max_time
+            # self.world.set_size(self.initial_width*time_fraction_to_go, self.initial_height*time_fraction_to_go)
             self.check_turtles(True)
             update()
             try:
@@ -241,8 +248,6 @@ class Engine:
         tracer(0, 0)
         update()
         winner = self.winning_player()
-        print("Winner:",winner.team_name,str(winner.color))
-        return self.winning_player()
-
+        return winner
 
 

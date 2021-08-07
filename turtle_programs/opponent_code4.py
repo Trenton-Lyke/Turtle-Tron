@@ -1,17 +1,21 @@
-# replace "opponent team name" with the name you want
-# opponent turtles to be enclosed by quotation marks
+# replace "your team name" with the name you want 
+# for your turtle. Make sure the text is enclosed 
+# by quotation marks
 # for example:
-# team_name = "The Lame Team"
-team_name = "The winners"
+# team_name = "The Cool Team"
+team_name = "The Coolest Team"
 
-# replace "opponent team color" with the name of the color
-# you want opponent turtles to be and enclose it with quotation marks
+# replace "your team color" with the name of the color 
+# you want your turtle to be. Make sure the text is 
+# enclosed by quotation marks
 # for example:
-# color = "blue"
-color = "yellow"
+# color = "green"
+color = "purple"
 
-# replace turtle.forward(1) with the code you want to use to move the
-# opponent turtles around during the game. Make sure the code is
+# replace turtle.forward(1) with the code you want to use to move your
+# turtle around during the game. Make sure your code is
 # indented over just like the turtle.forward(1) method call is.
 def movement_function(turtle, world):
-  turtle.forward(turtle.energy_level()/2)
+  for i in range(3):
+    turtle.forward(10)
+    turtle.right(120)

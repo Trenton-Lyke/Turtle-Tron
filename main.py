@@ -23,7 +23,13 @@ def check_color_tuple(color_tuple):
         valid &= isinstance(val,float)
     return valid
 def default_placement_function(world: World) -> Tuple[float, float]:
-    return world.random_location()
+    num = randint(0,1)
+    location = world.random_location()
+    if num == 0:
+        location = (world.world_dimensions.max_x() if randint(0,1) == 0 else world.world_dimensions.min_x(), location[1])
+    else:
+        location = (location[0], world.world_dimensions.max_y() if randint(0,1) == 0 else world.world_dimensions.min_y())
+    return location
 
 def default_movement_function(turtle: CompetitionTurtle, world: World):
     turtle.forward(turtle.energy_level())
@@ -89,6 +95,7 @@ def failsafes(person):
 
 Screen().setup(width=0, height=0)
 people=[]
+
 for file in os.listdir(turtle_programs.__path__[0]):
     if file.endswith(".py") and file != "__init__.py":
         person = import_module("turtle_programs."+ file.replace(".py","").strip())
@@ -121,6 +128,7 @@ while len(people) > 1:
         for player in players:
             print(player.team_name,player.color)
         winner = run_match(players)
+        print("Winner:",winner.team_name,str(winner.color))
         if not (winner in winners):
             winners.append(winner)
     people = winners
